@@ -20,7 +20,7 @@ public class TestSolution {
     @Test
     public void getUniqueIPsTEST() {
         Set<String> ipLogs = log.getUniqueIPs(null, null);
-        List<String> ipArr = Arrays.asList("146.34.15.6", "127.0.0.1", "192.168.100.2", "146.34.15.5", "12.12.12.12", "120.120.120.122");
+        List<String> ipArr = Arrays.asList("146.34.15.6", "127.0.0.1", "192.168.100.2", "146.34.15.5", "12.12.12.12", "120.120.120.122", "7.8.9.123");
         Set<String> ip = new HashSet<>(ipArr);
 
         Assert.assertArrayEquals(ipLogs.toArray(), ip.toArray());
@@ -29,7 +29,7 @@ public class TestSolution {
     @Test
     public void getNumberOfUniqueIPsTEST() {
         Set<String> ipLogs = log.getUniqueIPs(null, null);
-        int ipCount = 6;
+        int ipCount = 7;
 
         Assert.assertEquals(ipLogs.size(), ipCount);
     }
@@ -60,7 +60,7 @@ public class TestSolution {
     @Test
     public void getIPsForStatusTEST() {
         Set<String> ipsLog = log.getIPsForStatus(Status.OK, null, null);
-        String[] ips = {"127.0.0.1", "192.168.100.2","146.34.15.6", "146.34.15.5", "12.12.12.12", "120.120.120.122"};
+        String[] ips = {"127.0.0.1", "192.168.100.2", "146.34.15.6", "146.34.15.5", "12.12.12.12", "120.120.120.122", "7.8.9.123"};
         Set<String> ipsSetExpected = new HashSet<>(Arrays.asList(ips));
 
         Assert.assertEquals(ipsLog, ipsSetExpected);
@@ -69,7 +69,7 @@ public class TestSolution {
     @Test
     public void getAllUsers() {
         Set<String> nameSetLog = log.getAllUsers();
-        String[] names = {"Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko"};
+        String[] names = {"Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko", "Best user of the BEST"};
         Set<String> nameSetExpected = new HashSet<>(Arrays.asList(names));
 
         Assert.assertEquals(nameSetLog, nameSetExpected);
@@ -78,7 +78,7 @@ public class TestSolution {
     @Test
     public void getNumberOfUsersTEST() {
         int countUser = log.getNumberOfUsers(null, null);
-        int countExpected = 3;
+        int countExpected = 4;
 
         Assert.assertEquals(countExpected, countUser);
     }
@@ -86,7 +86,7 @@ public class TestSolution {
     @Test
     public void getNumberOfUserEventsTEST() {
         int countUserEvent = log.getNumberOfUserEvents("Eduard Petrovich Morozko", null, null);
-        int countExpected = 4;
+        int countExpected = 5;
         Assert.assertEquals(countExpected, countUserEvent);
     }
 
@@ -102,7 +102,7 @@ public class TestSolution {
     @Test
     public void getLoggedUsersTEST() {
         Set<String> nameSetLog = log.getLoggedUsers(null, null);
-        String[] names = {"Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko"};
+        String[] names = {"Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko", "Best user of the BEST"};
         Set<String> nameSetExpected = new HashSet<>(Arrays.asList(names));
 
         Assert.assertEquals(nameSetLog, nameSetExpected);
@@ -129,7 +129,7 @@ public class TestSolution {
     @Test
     public void getSolvedTaskUsersTEST() {
         Set<String> nameSetLog = log.getSolvedTaskUsers(null, null);
-        String[] names = {"Amigo", "Vasya Pupkin"};
+        String[] names = {"Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko"};
         Set<String> nameSetExpected = new HashSet<>(Arrays.asList(names));
 
         Assert.assertEquals(nameSetLog, nameSetExpected);
@@ -190,7 +190,8 @@ public class TestSolution {
 
             Set<Long> dates = new HashSet<>(Arrays.asList(
                     format.parse("05.01.2021 20:22:55").getTime(),
-                    format.parse("11.12.2013 10:11:12").getTime()));
+                    format.parse("11.12.2013 10:11:12").getTime(),
+                    format.parse("12.12.2013 21:56:30").getTime()));
 
             Assert.assertEquals(dates, datesLog);
 
@@ -297,7 +298,7 @@ public class TestSolution {
     public void getEventsForUserTEST() {
         Set<Event> eventLog = log.getEventsForUser("Eduard Petrovich Morozko", null, null);
         Set<Event> eventExpected = new HashSet<>(
-                Arrays.asList(Event.LOGIN, Event.DOWNLOAD_PLUGIN, Event.WRITE_MESSAGE, Event.DONE_TASK));
+                Arrays.asList(Event.LOGIN, Event.DOWNLOAD_PLUGIN, Event.WRITE_MESSAGE, Event.DONE_TASK, Event.SOLVE_TASK));
 
         Assert.assertEquals(eventLog, eventExpected);
     }
@@ -306,7 +307,7 @@ public class TestSolution {
     public void getFailedEventsAndErrorTEST() {
         Set<Event> eventLog = log.getFailedEvents(null, null);
         Set<Event> eventExpected = new HashSet<>(
-                Arrays.asList(Event.WRITE_MESSAGE, Event.DONE_TASK));
+                Arrays.asList(Event.WRITE_MESSAGE, Event.DONE_TASK, Event.SOLVE_TASK));
 
         Assert.assertEquals(eventExpected, eventLog);
 
@@ -330,6 +331,7 @@ public class TestSolution {
         Map<Integer, Integer> expectedMap = new HashMap<>();
         expectedMap.put(18, 3);
         expectedMap.put(1, 2);
+        expectedMap.put(0, 1);
 
         Assert.assertEquals(logMap, expectedMap);
     }
@@ -347,7 +349,9 @@ public class TestSolution {
     @Test
     public void simpleExecuteTEST() {
         Set<Object> setLog = log.execute("get ip");
-        Set<Object> expectedSet = new HashSet<>(Arrays.asList("120.120.120.122","146.34.15.6", "146.34.15.5", "192.168.100.2", "12.12.12.12", "127.0.0.1"));
+        Set<Object> expectedSet = new HashSet<>(
+                Arrays.asList("120.120.120.122", "146.34.15.6", "146.34.15.5",
+                        "192.168.100.2", "12.12.12.12", "127.0.0.1", "7.8.9.123"));
 
         Assert.assertEquals(setLog, expectedSet);
 
@@ -357,17 +361,17 @@ public class TestSolution {
         Assert.assertEquals(setLog, expectedSet);
 
         setLog = log.execute("get user");
-        expectedSet = new HashSet<>(Arrays.asList("Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko"));
+        expectedSet = new HashSet<>(Arrays.asList("Amigo", "Vasya Pupkin", "Eduard Petrovich Morozko", "Best user of the BEST"));
 
-        Assert.assertEquals(setLog,expectedSet);
+        Assert.assertEquals(setLog, expectedSet);
 
-        setLog= log.execute("get status");
+        setLog = log.execute("get status");
         expectedSet = new HashSet<>(Arrays.asList(Status.OK, Status.ERROR, Status.FAILED));
 
-        Assert.assertEquals(setLog,expectedSet);
+        Assert.assertEquals(setLog, expectedSet);
 
         setLog = log.execute("get ip for user = \"Eduard Petrovich Morozko\"");
-        expectedSet = new HashSet<>(Arrays.asList("146.34.15.6", "146.34.15.5","127.0.0.1"));
+        expectedSet = new HashSet<>(Arrays.asList("146.34.15.6", "146.34.15.5", "127.0.0.1"));
 
         Assert.assertEquals(setLog, expectedSet);
     }

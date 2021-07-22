@@ -279,7 +279,7 @@ public class LogParser implements IPQuery, UserQuery, DateQuery, EventQuery, QLQ
         Matcher matcher = pattern.matcher(query);
 
         if (!matcher.find()) System.err.println("Pattern exception");
-
+//
         String field = matcher.group("field");
         String field2 = matcher.group("field2");
         String value = matcher.group("value");
@@ -343,6 +343,7 @@ public class LogParser implements IPQuery, UserQuery, DateQuery, EventQuery, QLQ
     }
 
     private Set<Object> dateQuery(String field, String value) {
+//        DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         DateFormat format = new SimpleDateFormat("d.M.y H:m:s");
         Date currentDate = null;
         try {
